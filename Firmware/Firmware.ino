@@ -62,9 +62,9 @@ void setup()
 {
     // Setup Serial which is useful for debugging
     // Use the Serial Monitor to view printed messages
-    Serial.begin(9600);
-    while (!Serial) ; // wait for serial port to connect. Needed for native USB
-    Serial.println("start");
+    // Serial.begin(9600);
+    // while (!Serial) ; // wait for serial port to connect. Needed for native USB
+    // Serial.println("start");
     
     dht_1.begin();
     dht_2.begin();
