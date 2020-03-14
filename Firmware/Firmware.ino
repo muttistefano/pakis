@@ -71,17 +71,6 @@ void setup()
     
     lcd.begin(16, 2);
 
-    // create a new character
-    lcd.createChar(0, heart);
-    // create a new character
-    lcd.createChar(1, smiley);
-    // create a new character
-    lcd.createChar(2, frownie);
-    // create a new character
-    lcd.createChar(3, armsDown);
-    // create a new character
-    lcd.createChar(4, armsUp);
-
     lcd.setCursor(0, 0);
 
     lcd.print("T: ");
@@ -157,7 +146,7 @@ void loop()
 //   lcd.setCursor(2, 1);
 //   lcd.print(angle);
   delay(500);
-  cnt = cnt + 2;
+//   cnt = cnt + 2;
 }
 
 // Main logic of your circuit. It defines the interaction between the components you selected. After setup, it runs over and over again, in an eternal loop.
@@ -329,4 +318,3 @@ void loop()
 //     }
 // }
 
-********************************************************/
