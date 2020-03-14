@@ -52,6 +52,11 @@ const int timeout = 10000;       //define timeout of 10 sec
 char menuOption = 0;
 long time0;
 
+static char T1[5];
+static char U1[5];
+static char T2[5];
+static char U2[5];
+
 // Setup the essentials for your circuit to work. It runs first every time your circuit is powered with electricity.
 void setup() 
 {
@@ -125,28 +130,33 @@ void setup()
 
 void loop()
 {
+    
   
   float dht_1Humidity1 = dht_1.readHumidity();
-  float tempT1 = dht_1.readTempC();
+  float tempT1         = dht_1.readTempC();
+  dtostrf(dht_1Humidity1,5, 1, U1);
+  dtostrf(tempT1,5, 1, T1);
 
-  float dht_1Humidity2 = dht_2.readHumidity();
-  float tempT2 = dht_2.readTempC();
+  float dht_2Humidity2 = dht_2.readHumidity();
+  float tempT2         = dht_2.readTempC();
+  dtostrf(dht_2Humidity2,5, 1, U2);
+  dtostrf(tempT2,5, 1, T2);
 
   lcd.setCursor(2, 0);
-  lcd.print(tempT1);
+  lcd.print(T1);
   lcd.setCursor(9, 0);
-  lcd.print(dht_1Humidity1);
+  lcd.print(U1);
 
   lcd.setCursor(2, 1);
-  lcd.print(tempT2);
+  lcd.print(T2);
   lcd.setCursor(9, 1);
-  lcd.print(dht_1Humidity2);
+  lcd.print(U2);
 
 //   angle = map(cnt,0,1023,0,179);
 //   servo9g1_1.write(angle);
 //   lcd.setCursor(2, 1);
 //   lcd.print(angle);
-  delay(100);
+  delay(500);
   cnt = cnt + 2;
 }
 
