@@ -172,10 +172,10 @@ void loop()
   lcd.setCursor(1, 1);
   lcd.print((int)tempT2);
   lcd.setCursor(3, 1);
-  lcd.print((int)dht_2Humidity1);
+  lcd.print((int)dht_2Humidity2);
 
-  b1 = pushButton_1.onPress()
-  b2 = pushButton_2.onPress()
+  b1 = pushButton_1.onPress();
+  b2 = pushButton_2.onPress();
 
   if(b1)
   {
