@@ -174,53 +174,59 @@ void loop()
   lcd.setCursor(3, 1);
   lcd.print((int)dht_2Humidity2);
 
-  b1 = pushButton_1.onPress();
-  b2 = pushButton_2.onPress();
 
-  if(b1)
+
+  unsigned long startedWaiting = millis();
+  while( millis() - startedWaiting <= 500)
   {
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
-    if(Hole1O)    
-    {
-      servo9g1_1.write(servo9g1_1RestPosition);    
-      delay(1500);   
-      Hole1O = false;   
-      lcd.setCursor(15, 0);
-      lcd.write(byte(0));                      
-    }
-    else
-    {
-      servo9g1_1.write(servo9g1_1TargetPosition);  
-      delay(1500);   
-      Hole1O = true;      
-      lcd.setCursor(15, 0);
-      lcd.write(byte(1));               
-    }                   
-    servo9g1_1.detach();                    
-  }
+    b1 = pushButton_1.onPress();
+    b2 = pushButton_2.onPress();
 
-  if(b2)
-  {
-    servo9g2_2.attach(SERVO9G1_1_PIN_SIG);     
-    if(Hole2O)    
+    if(b1)
     {
-      servo9g2_2.write(servo9g1_1RestPosition);    
-      delay(1500);   
-      Hole2O = false;   
-      lcd.setCursor(15, 1);
-      lcd.write(byte(0));                          
+      servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
+      if(Hole1O)    
+      {
+        servo9g1_1.write(servo9g1_1RestPosition);    
+        delay(1500);   
+        Hole1O = false;   
+        lcd.setCursor(15, 0);
+        lcd.write(byte(0));                      
+      }
+      else
+      {
+        servo9g1_1.write(servo9g1_1TargetPosition);  
+        delay(1500);   
+        Hole1O = true;      
+        lcd.setCursor(15, 0);
+        lcd.write(byte(1));               
+      }                   
+      servo9g1_1.detach();                    
     }
-    else
-    {
-      servo9g2_2.write(servo9g1_1TargetPosition);  
-      delay(1500);   
-      Hole2O = true;   
-      lcd.setCursor(15, 1);
-      lcd.write(byte(1));                  
-    }                   
-    servo9g2_2.detach();                    
-  }
 
+    if(b2)
+    {
+      servo9g2_2.attach(SERVO9G2_2_PIN_SIG);     
+      if(Hole2O)    
+      {
+        servo9g2_2.write(servo9g2_2RestPosition);    
+        delay(1500);   
+        Hole2O = false;   
+        lcd.setCursor(15, 1);
+        lcd.write(byte(0));                          
+      }
+      else
+      {
+        servo9g2_2.write(servo9g2_2TargetPosition);  
+        delay(1500);   
+        Hole2O = true;   
+        lcd.setCursor(15, 1);
+        lcd.write(byte(1));                  
+      }                   
+      servo9g2_2.detach();                    
+    }
+    delay(50);
+  }
 //   angle = map(cnt,0,1023,0,179);
 //   servo9g1_1.write(angle);
 //   lcd.setCursor(2, 1);
