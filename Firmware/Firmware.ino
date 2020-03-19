@@ -68,6 +68,28 @@ byte FuChar[] = {
   B11111
 };
 
+byte OpenRele[] = {
+  B00010,
+  B00100,
+  B01000,
+  B10000,
+  B00010,
+  B00010,
+  B00010,
+  B00010
+};
+
+byte CloseRele[] = {
+  B00100,
+  B00100,
+  B00100,
+  B00100,
+  B00100,
+  B00100,
+  B00100,
+  B00100
+};
+
 // define vars for testing menu
 const int timeout = 10000;       //define timeout of 10 sec
 char menuOption = 0;
@@ -106,29 +128,16 @@ void setup()
     lcd.write(byte(0));
     lcd.setCursor(15, 1);
     lcd.write(byte(0));
-    // lcd.print("T");
-    // lcd.setCursor(0, 1);
-    // lcd.print("T");
-    // lcd.setCursor(7, 0);
-    // lcd.print("U");
-    // lcd.setCursor(7, 1);
-    // lcd.print("U");
 
     pushButton_1.init();
     pushButton_2.init();
 
-    // if (! rtcDS.begin()) {
-    // Serial.println("Couldn't find RTC");
-    // while (1);
-    // }
-    // if (rtcDS.lostPower()) {
-    // Serial.println("RTC lost power, lets set the time!");
-    // // following line sets the RTC to the date & time this sketch was compiled
-    // rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
-    // // This line sets the RTC with an explicit date & time, for example to set
-    // // January 21, 2014 at 3am you would call:
-    // // rtcDS.adjust(DateTime(2014, 1, 21, 3, 0, 0));
-    // }
+
+    if (rtcDS.lostPower()) 
+    {
+        Serial.println("RTC lost power, lets set the time!");
+        rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    }
 
     pinMode(RELAYMODULE4CH_PIN_IN1, OUTPUT);
     pinMode(RELAYMODULE4CH_PIN_IN2, OUTPUT);
@@ -156,13 +165,9 @@ void loop()
   
   float dht_1Humidity1 = dht_1.readHumidity();
   float tempT1         = dht_1.readTempC();
-  // dtostrf(dht_1Humidity1,4, 1, U1);
-  // dtostrf(tempT1,4, 1, T1);
 
   float dht_2Humidity2 = dht_2.readHumidity();
   float tempT2         = dht_2.readTempC();
-  // dtostrf(dht_2Humidity2,4, 1, U2);
-  // dtostrf(tempT2,4, 1, T2);
 
   lcd.setCursor(0, 0);
   lcd.print((int)tempT1);
@@ -174,10 +179,8 @@ void loop()
   lcd.setCursor(3, 1);
   lcd.print((int)dht_2Humidity2);
 
-
-
   unsigned long startedWaiting = millis();
-  while( millis() - startedWaiting <= 500)
+  while( millis() - startedWaiting <= 1000)
   {
     b1 = pushButton_1.onPress();
     b2 = pushButton_2.onPress();
@@ -225,14 +228,10 @@ void loop()
       }                   
       servo9g2_2.detach();                    
     }
+
     delay(50);
   }
-//   angle = map(cnt,0,1023,0,179);
-//   servo9g1_1.write(angle);
-//   lcd.setCursor(2, 1);
-//   lcd.print(angle);
-  delay(500);
-//   cnt = cnt + 2;
+
 }
 
 // Main logic of your circuit. It defines the interaction between the components you selected. After setup, it runs over and over again, in an eternal loop.
