@@ -32,10 +32,10 @@
 // Global variables and defines
 //define an array for the 4ch relay module pins
 int RelayModule4chPins[] = { RELAYMODULE4CH_PIN_IN1, RELAYMODULE4CH_PIN_IN2, RELAYMODULE4CH_PIN_IN3, RELAYMODULE4CH_PIN_IN4 };
-const int servo9g1_1RestPosition   = 20;  //Starting position
-const int servo9g1_1TargetPosition = 150; //Position when event is detected
-const int servo9g2_2RestPosition   = 20;  //Starting position
-const int servo9g2_2TargetPosition = 150; //Position when event is detected
+const int servo9g1_1RestPosition   = 0;  //Starting position
+const int servo9g1_1TargetPosition = 50; //Position when event is detected
+const int servo9g2_2RestPosition   = 0;  //Starting position
+const int servo9g2_2TargetPosition = 25; //Position when event is detected
 // object initialization
 DHT dht_1(DHT_1_PIN_DATA);
 DHT dht_2(DHT_2_PIN_DATA);
@@ -169,7 +169,7 @@ void loop()
   lcd.setCursor(3, 0);
   lcd.print((int)dht_1Humidity1);
 
-  lcd.setCursor(1, 1);
+  lcd.setCursor(0, 1);
   lcd.print((int)tempT2);
   lcd.setCursor(3, 1);
   lcd.print((int)dht_2Humidity2);
