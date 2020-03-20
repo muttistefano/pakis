@@ -307,7 +307,7 @@ void loop()
 
   if((T1filt < TLTH1) && !TappOn)
   {
-    digitalWrite(RelayModule4chPins[i],HIGH);
+    digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
     TappOn = true;
     lcd.setCursor(14, 0);
@@ -316,7 +316,7 @@ void loop()
 
   if((T1filt > TLTH1) && TappOn)
   {
-    digitalWrite(RelayModule4chPins[i],LOW);
+    digitalWrite(RelayModule4chPins[0],LOW);
     delay(500);
     TappOn = false;
     lcd.setCursor(14, 0);
