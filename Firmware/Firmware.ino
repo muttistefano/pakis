@@ -180,8 +180,6 @@ void setup()
     servo9g2_2.write(servo9g2_2RestPosition);
     delay(100);
     servo9g2_2.detach();
-
-    // menuOption = menu();
     
 }
 
@@ -225,7 +223,22 @@ void loop()
   lcd.setCursor(3, 1);
   lcd.print((int)U2filt);
 
+  DateTime now = rtcDS.now();
+  int h = now.hour(); 
+  int m = now.minute();
 
+  lcd.setCursor(0, 6);
+  if (h<10){   
+   lcd.print(0);
+  }
+  lcd.print(h);   
+  lcd.setCursor(0, 8); 
+  lcd.print(":");  
+  lcd.setCursor(0, 9); 
+  if (m<10){   
+    lcd.print(0);
+  }
+  lcd.print(m);
 
   if(false)
   {
@@ -285,6 +298,7 @@ void loop()
 
   if((T1filt > TUTH1) && !Hole1O)
   {
+    TUTH1 = TUTH1 - 0.3;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
     servo9g1_1.write(servo9g1_1TargetPosition);  
     delay(1500);   
@@ -296,6 +310,7 @@ void loop()
 
   if((T1filt < TUTH1) && Hole1O)
   {
+    TUTH1 = TUTH1 + 0.3;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
     servo9g1_1.write(servo9g1_1RestPosition);    
     delay(1500);   
@@ -307,19 +322,41 @@ void loop()
 
   if((T1filt < TLTH1) && !TappOn)
   {
+    TLTH1 = TLTH1 + 0.3;
     digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
     TappOn = true;
-    lcd.setCursor(14, 0);
+    lcd.setCursor(14, 3);
     lcd.write(byte(3));
   }
 
   if((T1filt > TLTH1) && TappOn)
   {
+    TLTH1 = TLTH1 - 0.3;
     digitalWrite(RelayModule4chPins[0],LOW);
     delay(500);
     TappOn = false;
-    lcd.setCursor(14, 0);
+    lcd.setCursor(14, 2);
+    lcd.write(byte(2));
+  }
+
+  if((U1filt < ULTH1) && !UmidOn)
+  {
+    ULTH1 = ULTH1 + 0.3;
+    digitalWrite(RelayModule4chPins[1],HIGH);
+    delay(500);
+    UmidOn = true;
+    lcd.setCursor(13, 3);
+    lcd.write(byte(3));
+  }
+
+  if((U1filt > ULTH1) && UmidOn)
+  {
+    ULTH1 = ULTH1 - 0.3;
+    digitalWrite(RelayModule4chPins[1],LOW);
+    delay(500);
+    UmidOn = false;
+    lcd.setCursor(13, 2);
     lcd.write(byte(2));
   }
 
@@ -387,7 +424,7 @@ void loop()
 //     else if(menuOption == '6') {
 //     // RTC - Real Time Clock - Test Code
 //     //This will display the time and date of the RTC. see RTC.h for more functions such as rtcDS.hour(), rtcDS.month() etc.
-//     DateTime now = rtcDS.now();
+
 //     Serial.print(now.month(), DEC);
 //     Serial.print('/');
 //     Serial.print(now.day(), DEC);
