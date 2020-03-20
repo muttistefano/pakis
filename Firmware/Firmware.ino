@@ -106,10 +106,13 @@ bool b2 = false;
 bool Hole1O = false;
 bool Hole2O = false;
 
-CircularBuffer<float, 60> T1buff;
-CircularBuffer<float, 60> T2buff;
-CircularBuffer<float, 60> U1buff;
-CircularBuffer<float, 60> U2buff;
+bool TappOn = false;
+bool UmidOn = false;
+
+CircularBuffer<float, 30> T1buff;
+CircularBuffer<float, 30> T2buff;
+CircularBuffer<float, 30> U1buff;
+CircularBuffer<float, 30> U2buff;
 
 float T1filt = 0.0;
 float T2filt = 0.0;
@@ -139,11 +142,19 @@ void setup()
     lcd.setCursor(0, 0);
     lcd.createChar(0, EmChar);
     lcd.createChar(1, FuChar);
+    lcd.createChar(2, OpenRele);
+    lcd.createChar(3, CloseRele);
     
     lcd.setCursor(15, 0);
     lcd.write(byte(0));
     lcd.setCursor(15, 1);
     lcd.write(byte(0));
+
+        
+    lcd.setCursor(14, 0);
+    lcd.write(byte(2));
+    lcd.setCursor(14, 1);
+    lcd.write(byte(2));
 
     pushButton_1.init();
     pushButton_2.init();
@@ -272,7 +283,47 @@ void loop()
     }
   }
 
-  delay(1000);
+  if((T1filt > TUTH1) && !Hole1O)
+  {
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
+    servo9g1_1.write(servo9g1_1TargetPosition);  
+    delay(1500);   
+    Hole1O = true;      
+    lcd.setCursor(15, 0);
+    lcd.write(byte(1));                                
+    servo9g1_1.detach();               
+  }
+
+  if((T1filt < TUTH1) && Hole1O)
+  {
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
+    servo9g1_1.write(servo9g1_1RestPosition);    
+    delay(1500);   
+    Hole1O = false;   
+    lcd.setCursor(15, 0);
+    lcd.write(byte(0));                                  
+    servo9g1_1.detach();               
+  }
+
+  if((T1filt < TLTH1) && !TappOn)
+  {
+    digitalWrite(RelayModule4chPins[0],HIGH);
+    delay(500);
+    TappOn = true;
+    lcd.setCursor(14, 0);
+    lcd.write(byte(3));
+  }
+
+  if((T1filt > TLTH1) && TappOn)
+  {
+    digitalWrite(RelayModule4chPins[0],LOW);
+    delay(500);
+    TappOn = false;
+    lcd.setCursor(14, 0);
+    lcd.write(byte(2));
+  }
+
+  delay(4000);
 
 }
 
