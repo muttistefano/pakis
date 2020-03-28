@@ -159,7 +159,7 @@ void setup()
     pushButton_1.init();
     pushButton_2.init();
 
-
+    rtcDS.begin();
     if (rtcDS.lostPower()) 
     {
         Serial.println("RTC lost power, lets set the time!");
