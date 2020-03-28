@@ -310,9 +310,9 @@ void loop()
     }
   }
 
-  bool istime1 = (totsec > (19 * 60 * 60) || totsec < (9 * 60 * 60) ) ? true:false
+  bool istime1 = (totsec > (19 * 60 * 60) || totsec < (9 * 60 * 60) ) ? true:false;
 
-  bool istime2 = (totsec > (19 * 60 * 60) || totsec < (7 * 60 * 60) ) ? true:false
+  bool istime2 = (totsec > (19 * 60 * 60) || totsec < (7 * 60 * 60) ) ? true:false;
 
   if(istime1 && !Lamp1)
   {
