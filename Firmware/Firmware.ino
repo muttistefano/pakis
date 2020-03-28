@@ -237,7 +237,7 @@ void loop()
   DateTime now = rtcDS.now();
   int h = now.hour(); 
   int m = now.minute();
-  long totsec = (h * 60 * 60) + (m * 60);
+  float totsec = (float)h + (float)(m)/60.0;
 
   lcd.setCursor(6, 0);
   if (h<10){   
@@ -310,9 +310,9 @@ void loop()
     }
   }
 
-  bool istime1 = (totsec > (19 * 60 * 60) || totsec < (9 * 60 * 60) ) ? true:false;
+  bool istime1 = (totsec > 19.00) || totsec < (9.0) ) ? true:false;
 
-  bool istime2 = (totsec > (19 * 60 * 60) || totsec < (7 * 60 * 60) ) ? true:false;
+  bool istime2 = (totsec > 19.00) || totsec < (7.0) ) ? true:false;
 
   if(istime1 && !Lamp1)
   {
