@@ -103,6 +103,9 @@ static char U2[4];
 bool b1 = false;
 bool b2 = false;
 
+bool Lamp1 = false;
+bool Lamp2 = false;
+
 bool Hole1O = false;
 bool Hole2O = false;
 
@@ -119,12 +122,16 @@ float T2filt = 0.0;
 float U1filt = 0.0;
 float U2filt = 0.0;
 
-float TLTH1  = 20.0; 
-float TUTH1  = 26.0;
+float TLTH1  = 24.0; 
+float TUTH1  = 28.0;
 
-float ULTH1  = 70.0; 
-float UUTH1  = 90.0;
+float ULTH1  = 68.0; 
+float UUTH1  = 85.0;
 
+float TLTH2  = 26.0; 
+
+float ULTH2  = 35.0; 
+float UUTH2  = 55.0;
 
 void setup() 
 {
@@ -214,6 +221,9 @@ void loop()
     U2filt += U2buff[i] / T1buff.size();
   }
 
+  T2filt = T2filt - 2;
+  T2filt = T2filt - 2;
+
   lcd.setCursor(0, 0);
   lcd.print((int)T1filt);
   lcd.setCursor(3, 0);
@@ -227,6 +237,7 @@ void loop()
   DateTime now = rtcDS.now();
   int h = now.hour(); 
   int m = now.minute();
+  int totsec = (h * 60 * 60) + (m * 60);
 
   lcd.setCursor(6, 0);
   if (h<10){   
@@ -299,6 +310,38 @@ void loop()
     }
   }
 
+  bool istime1 = (totsec > (19 * 60 * 60) || totsec < (9 * 60 * 60) ) ? true:false
+
+  bool istime2 = (totsec > (19 * 60 * 60) || totsec < (7 * 60 * 60) ) ? true:false
+
+  if(istime1 && !Lamp1)
+  {
+    digitalWrite(RelayModule4chPins[0],HIGH);
+    delay(500);
+    Lamp1 = true;
+  }
+
+  if(!istime1 && Lamp1)
+  {
+    digitalWrite(RelayModule4chPins[0],LOW);
+    delay(500);
+    Lamp1 = false;
+  }
+
+  if(istime2 && !Lamp2)
+  {
+    digitalWrite(RelayModule4chPins[1],HIGH);
+    delay(500);
+    Lamp2 = true;
+  }
+
+  if(!istime2 && Lamp2)
+  {
+    digitalWrite(RelayModule4chPins[1],LOW);
+    delay(500);
+    Lamp2 = false;
+  }
+
   if((T1filt > TUTH1) && !Hole1O)
   {
     TUTH1 = TUTH1 - 0.3;
@@ -326,7 +369,7 @@ void loop()
   if((T1filt < TLTH1) && !TappOn)
   {
     TLTH1 = TLTH1 + 0.3;
-    digitalWrite(RelayModule4chPins[0],HIGH);
+    digitalWrite(RelayModule4chPins[3],HIGH);
     delay(500);
     TappOn = true;
     lcd.setCursor(14, 0);
@@ -336,17 +379,41 @@ void loop()
   if((T1filt > TLTH1) && TappOn)
   {
     TLTH1 = TLTH1 - 0.3;
-    digitalWrite(RelayModule4chPins[0],LOW);
+    digitalWrite(RelayModule4chPins[3],LOW);
     delay(500);
     TappOn = false;
     lcd.setCursor(14, 0);
     lcd.write(byte(2));
   }
 
+  if((U1filt > UUTH1) && !Hole1O)
+  {
+    UUTH1 = UUTH1 - 0.5;
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
+    servo9g1_1.write(servo9g1_1TargetPosition);  
+    delay(1500);   
+    Hole1O = true;      
+    lcd.setCursor(15, 0);
+    lcd.write(byte(1));                                
+    servo9g1_1.detach();               
+  }
+
+  if((U1filt < UUTH1) && Hole1O)
+  {
+    UUTH1 = UUTH1 + 0.5;
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
+    servo9g1_1.write(servo9g1_1RestPosition);    
+    delay(1500);   
+    Hole1O = false;   
+    lcd.setCursor(15, 0);
+    lcd.write(byte(0));                                  
+    servo9g1_1.detach();               
+  }
+
   if((U1filt < ULTH1) && !UmidOn)
   {
     ULTH1 = ULTH1 + 0.3;
-    digitalWrite(RelayModule4chPins[1],HIGH);
+    digitalWrite(RelayModule4chPins[2],HIGH);
     delay(500);
     UmidOn = true;
     lcd.setCursor(14, 1);
@@ -356,12 +423,14 @@ void loop()
   if((U1filt > ULTH1) && UmidOn)
   {
     ULTH1 = ULTH1 - 0.3;
-    digitalWrite(RelayModule4chPins[1],LOW);
+    digitalWrite(RelayModule4chPins[2],LOW);
     delay(500);
     UmidOn = false;
     lcd.setCursor(14, 1);
     lcd.write(byte(2));
   }
+
+
 
   delay(4000);
 
