@@ -228,19 +228,19 @@ void loop()
   int h = now.hour(); 
   int m = now.minute();
 
-  lcd.setCursor(0, 6);
+  lcd.setCursor(6, 0);
   if (h<10){   
    lcd.print(0);
   }
   lcd.print(h);   
-  lcd.setCursor(0, 8); 
+  lcd.setCursor(8, 0); 
   lcd.print(":");  
-  lcd.setCursor(0, 9); 
+  lcd.setCursor(9, 0); 
   if (m<10){   
     lcd.print(0);
   }
   lcd.print(m);
-  lcd.setCursor(1, 9);
+  lcd.setCursor(9, 1);
   lcd.print("porcodio");
 
   if(false)
@@ -329,7 +329,7 @@ void loop()
     digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
     TappOn = true;
-    lcd.setCursor(14, 3);
+    lcd.setCursor(14, 0);
     lcd.write(byte(3));
   }
 
@@ -339,7 +339,7 @@ void loop()
     digitalWrite(RelayModule4chPins[0],LOW);
     delay(500);
     TappOn = false;
-    lcd.setCursor(14, 2);
+    lcd.setCursor(14, 0);
     lcd.write(byte(2));
   }
 
@@ -349,7 +349,7 @@ void loop()
     digitalWrite(RelayModule4chPins[1],HIGH);
     delay(500);
     UmidOn = true;
-    lcd.setCursor(13, 3);
+    lcd.setCursor(14, 1);
     lcd.write(byte(3));
   }
 
@@ -359,7 +359,7 @@ void loop()
     digitalWrite(RelayModule4chPins[1],LOW);
     delay(500);
     UmidOn = false;
-    lcd.setCursor(13, 2);
+    lcd.setCursor(14, 1);
     lcd.write(byte(2));
   }
 
