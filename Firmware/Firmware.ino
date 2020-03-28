@@ -240,6 +240,8 @@ void loop()
     lcd.print(0);
   }
   lcd.print(m);
+  lcd.setCursor(1, 9);
+  lcd.print("porcodio");
 
   if(false)
   {
