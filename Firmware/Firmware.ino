@@ -318,6 +318,8 @@ void loop()
   {
     digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
+    lcd.setCursor(8, 1);
+    lcd.write("si");     
     Lamp1 = true;
   }
 
@@ -325,6 +327,8 @@ void loop()
   {
     digitalWrite(RelayModule4chPins[0],LOW);
     delay(500);
+    lcd.setCursor(8, 1);
+    lcd.write("no");
     Lamp1 = false;
   }
 
@@ -332,6 +336,8 @@ void loop()
   {
     digitalWrite(RelayModule4chPins[1],HIGH);
     delay(500);
+    lcd.setCursor(10, 1);
+    lcd.write("si");
     Lamp2 = true;
   }
 
@@ -339,6 +345,8 @@ void loop()
   {
     digitalWrite(RelayModule4chPins[1],LOW);
     delay(500);
+    lcd.setCursor(10, 1);
+    lcd.write("no");
     Lamp2 = false;
   }
 
