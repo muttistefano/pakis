@@ -237,7 +237,7 @@ void loop()
   DateTime now = rtcDS.now();
   int h = now.hour(); 
   int m = now.minute();
-  int totsec = (h * 60 * 60) + (m * 60);
+  long totsec = (h * 60 * 60) + (m * 60);
 
   lcd.setCursor(6, 0);
   if (h<10){   
@@ -251,8 +251,8 @@ void loop()
     lcd.print(0);
   }
   lcd.print(m);
-  lcd.setCursor(9, 1);
-  lcd.print("porcodio");
+
+  
 
   if(false)
   {
