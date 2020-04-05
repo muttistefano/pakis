@@ -221,17 +221,20 @@ void loop()
     U2filt += U2buff[i] / T1buff.size();
   }
 
-  T2filt = T2filt - 2;
-  T2filt = T2filt - 2;
+  //T1filt = T1filt - 2;
+  //T2filt = T2filt - 2;
 
+  int T1p = (int)(T1filt * 100);
+  int T2p = (int)(T2filt * 100);
+  
   lcd.setCursor(0, 0);
-  lcd.print((int)T1filt);
-  lcd.setCursor(3, 0);
+  lcd.print((int)T1p);
+  lcd.setCursor(4, 0);
   lcd.print((int)U1filt);
 
   lcd.setCursor(0, 1);
-  lcd.print((int)T2filt);
-  lcd.setCursor(3, 1);
+  lcd.print((int)T2p);
+  lcd.setCursor(4, 1);
   lcd.print((int)U2filt);
 
   DateTime now = rtcDS.now();
@@ -239,14 +242,14 @@ void loop()
   int m = now.minute();
   float totsec = (float)h + (float)(m)/60.0;
 
-  lcd.setCursor(6, 0);
+  lcd.setCursor(7, 0);
   if (h<10){   
    lcd.print(0);
   }
   lcd.print(h);   
-  lcd.setCursor(8, 0); 
-  lcd.print(":");  
   lcd.setCursor(9, 0); 
+  lcd.print(":");  
+  lcd.setCursor(10, 0); 
   if (m<10){   
     lcd.print(0);
   }
