@@ -257,7 +257,7 @@ void loop()
 
 
 
-  if(false)
+  if(true)
   {
     unsigned long startedWaiting = millis();
     while( millis() - startedWaiting <= 1000)
@@ -265,7 +265,7 @@ void loop()
       b1 = pushButton_1.onPress();
       b2 = pushButton_2.onPress();
 
-      if(b1)
+      if(false)
       {
         servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
         if(Hole1O)
@@ -287,7 +287,7 @@ void loop()
         servo9g1_1.detach();
       }
 
-      if(b2)
+      if(false)
       {
         servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
         if(Hole2O)
@@ -308,7 +308,10 @@ void loop()
         }
         servo9g2_2.detach();
       }
-
+      if(b1)
+      {digitalWrite(RelayModule4chPins[0],HIGH);}
+      if(b2)
+      {digitalWrite(RelayModule4chPins[0],LOW);}
       delay(50);
     }
   }
@@ -337,7 +340,7 @@ void loop()
 
   if(istime2 && !Lamp2)
   {
-    digitalWrite(RelayModule4chPins[1],HIGH);
+    //digitalWrite(RelayModule4chPins[1],HIGH);
     delay(500);
     lcd.setCursor(10, 1);
     lcd.write("si");
@@ -346,7 +349,7 @@ void loop()
 
   if(!istime2 && Lamp2)
   {
-    digitalWrite(RelayModule4chPins[1],LOW);
+    //digitalWrite(RelayModule4chPins[1],LOW);
     delay(500);
     lcd.setCursor(10, 1);
     lcd.write("no");
