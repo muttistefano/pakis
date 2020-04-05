@@ -308,9 +308,9 @@ void loop()
         servo9g2_2.detach();
       }
       if(b1)
-      {digitalWrite(RelayModule4chPins[0],HIGH);}
+      {digitalWrite(RelayModule4chPins[1],HIGH);}
       if(b2)
-      {digitalWrite(RelayModule4chPins[0],LOW);}
+      {digitalWrite(RelayModule4chPins[1],LOW);}
       delay(50);
     }
   }
