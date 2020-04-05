@@ -221,8 +221,8 @@ void loop()
     U2filt += U2buff[i] / T1buff.size();
   }
 
-  //T1filt = T1filt - 2;
-  //T2filt = T2filt - 2;
+  T1filt = T1filt - 1;
+  T2filt = T2filt - 1;
 
   int T1p = (int)(T1filt * 10);
   int T2p = (int)(T2filt * 10);
