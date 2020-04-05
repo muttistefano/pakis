@@ -254,7 +254,49 @@ void loop()
   }
   lcd.print(m);
 
-
+  while(true)
+  {
+    RelayModule4chPins[0],LOW;
+    RelayModule4chPins[1],LOW;
+    RelayModule4chPins[2],LOW;
+    RelayModule4chPins[3],LOW;
+    delay(2000);
+    RelayModule4chPins[0],LOW;
+    RelayModule4chPins[1],LOW;
+    RelayModule4chPins[2],LOW;
+    RelayModule4chPins[3],HIGH;
+    delay(2000);
+    RelayModule4chPins[0],LOW;
+    RelayModule4chPins[1],LOW;
+    RelayModule4chPins[2],HIGH;
+    RelayModule4chPins[3],HIGH;
+    delay(2000);
+    RelayModule4chPins[0],LOW;
+    RelayModule4chPins[1],HIGH;
+    RelayModule4chPins[2],HIGH;
+    RelayModule4chPins[3],HIGH;
+    delay(2000);
+    RelayModule4chPins[0],HIGH;
+    RelayModule4chPins[1],HIGH;
+    RelayModule4chPins[2],HIGH;
+    RelayModule4chPins[3],HIGH;
+    delay(2000);
+    RelayModule4chPins[0],HIGH;
+    RelayModule4chPins[1],HIGH;
+    RelayModule4chPins[2],HIGH;
+    RelayModule4chPins[3],LOW;
+    delay(2000);
+    RelayModule4chPins[0],HIGH;
+    RelayModule4chPins[1],HIGH;
+    RelayModule4chPins[2],LOW;
+    RelayModule4chPins[3],LOW;
+    delay(2000);
+    RelayModule4chPins[0],HIGH;
+    RelayModule4chPins[1],LOW;
+    RelayModule4chPins[2],LOW;
+    RelayModule4chPins[3],LOW;
+    delay(2000);
+  }
 
   if(true)
   {
