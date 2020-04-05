@@ -363,7 +363,7 @@ void loop()
 
   if(istime1 && !Lamp1)
   {
-    //digitalWrite(RelayModule4chPins[0],HIGH);
+    digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
     lcd.setCursor(8, 1);
     lcd.write("si");
@@ -372,7 +372,7 @@ void loop()
 
   if(!istime1 && Lamp1)
   {
-    //digitalWrite(RelayModule4chPins[0],LOW);
+    digitalWrite(RelayModule4chPins[0],LOW);
     delay(500);
     lcd.setCursor(8, 1);
     lcd.write("no");
@@ -381,7 +381,7 @@ void loop()
 
   if(istime2 && !Lamp2)
   {
-    //digitalWrite(RelayModule4chPins[1],HIGH);
+    digitalWrite(RelayModule4chPins[1],HIGH);
     delay(500);
     lcd.setCursor(10, 1);
     lcd.write("si");
@@ -390,7 +390,7 @@ void loop()
 
   if(!istime2 && Lamp2)
   {
-    //digitalWrite(RelayModule4chPins[1],LOW);
+    digitalWrite(RelayModule4chPins[1],LOW);
     delay(500);
     lcd.setCursor(10, 1);
     lcd.write("no");
