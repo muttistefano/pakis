@@ -224,8 +224,8 @@ void loop()
   //T1filt = T1filt - 2;
   //T2filt = T2filt - 2;
 
-  int T1p = (int)(T1filt * 100);
-  int T2p = (int)(T2filt * 100);
+  int T1p = (int)(T1filt * 10);
+  int T2p = (int)(T2filt * 10);
   
   lcd.setCursor(0, 0);
   lcd.print((int)T1p);
