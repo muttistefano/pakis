@@ -122,28 +122,28 @@ float T2filt = 0.0;
 float U1filt = 0.0;
 float U2filt = 0.0;
 
-float TLTH1  = 24.0; 
+float TLTH1  = 24.0;
 float TUTH1  = 28.0;
 
-float ULTH1  = 68.0; 
+float ULTH1  = 68.0;
 float UUTH1  = 85.0;
 
-float TLTH2  = 26.0; 
+float TLTH2  = 26.0;
 
-float ULTH2  = 35.0; 
+float ULTH2  = 35.0;
 float UUTH2  = 55.0;
 
-void setup() 
+void setup()
 {
     // Setup Serial which is useful for debugging
     // Use the Serial Monitor to view printed messages
     // Serial.begin(9600);
     // while (!Serial) ; // wait for serial port to connect. Needed for native USB
     // Serial.println("start");
-    
+
     dht_1.begin();
     dht_2.begin();
-    
+
     lcd.begin(16, 2);
 
     lcd.setCursor(0, 0);
@@ -151,13 +151,13 @@ void setup()
     lcd.createChar(1, FuChar);
     lcd.createChar(2, OpenRele);
     lcd.createChar(3, CloseRele);
-    
+
     lcd.setCursor(15, 0);
     lcd.write(byte(0));
     lcd.setCursor(15, 1);
     lcd.write(byte(0));
 
-        
+
     lcd.setCursor(14, 0);
     lcd.write(byte(2));
     lcd.setCursor(14, 1);
@@ -167,7 +167,7 @@ void setup()
     pushButton_2.init();
 
     rtcDS.begin();
-    if (rtcDS.lostPower()) 
+    if (rtcDS.lostPower())
     {
         Serial.println("RTC lost power, lets set the time!");
         rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
@@ -178,7 +178,7 @@ void setup()
     pinMode(RELAYMODULE4CH_PIN_IN2, OUTPUT);
     pinMode(RELAYMODULE4CH_PIN_IN3, OUTPUT);
     pinMode(RELAYMODULE4CH_PIN_IN4, OUTPUT);
-    
+
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1RestPosition);
     delay(100);
@@ -188,7 +188,7 @@ void setup()
     servo9g2_2.write(servo9g2_2RestPosition);
     delay(100);
     servo9g2_2.detach();
-    
+
 }
 
 
@@ -199,7 +199,7 @@ void loop()
   T2filt = 0.0;
   U1filt = 0.0;
   U2filt = 0.0;
-  
+
   float dht_1Humidity1 = dht_1.readHumidity();
   float tempT1         = dht_1.readTempC();
 
@@ -211,9 +211,9 @@ void loop()
 
   U1buff.push(dht_1Humidity1);
   U2buff.push(dht_2Humidity2);
- 
+
  	using index_t = decltype(T1buff)::index_t;
-  for (index_t i = 0; i < T1buff.size(); i++) 
+  for (index_t i = 0; i < T1buff.size(); i++)
   {
     T1filt += T1buff[i] / T1buff.size();
     T2filt += T2buff[i] / T1buff.size();
@@ -226,7 +226,7 @@ void loop()
 
   int T1p = (int)(T1filt * 10);
   int T2p = (int)(T2filt * 10);
-  
+
   lcd.setCursor(0, 0);
   lcd.print((int)T1p);
   lcd.setCursor(4, 0);
@@ -238,24 +238,24 @@ void loop()
   lcd.print((int)U2filt);
 
   DateTime now = rtcDS.now();
-  int h = now.hour(); 
+  int h = now.hour();
   int m = now.minute();
   float totsec = (float)h + (float)(m)/60.0;
 
   lcd.setCursor(7, 0);
-  if (h<10){   
+  if (h<10){
    lcd.print(0);
   }
-  lcd.print(h);   
-  lcd.setCursor(9, 0); 
-  lcd.print(":");  
-  lcd.setCursor(10, 0); 
-  if (m<10){   
+  lcd.print(h);
+  lcd.setCursor(9, 0);
+  lcd.print(":");
+  lcd.setCursor(10, 0);
+  if (m<10){
     lcd.print(0);
   }
   lcd.print(m);
 
-  
+
 
   if(false)
   {
@@ -267,46 +267,46 @@ void loop()
 
       if(b1)
       {
-        servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
-        if(Hole1O)    
+        servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
+        if(Hole1O)
         {
-          servo9g1_1.write(servo9g1_1RestPosition);    
-          delay(1500);   
-          Hole1O = false;   
+          servo9g1_1.write(servo9g1_1RestPosition);
+          delay(1500);
+          Hole1O = false;
           lcd.setCursor(15, 0);
-          lcd.write(byte(0));                      
+          lcd.write(byte(0));
         }
         else
         {
-          servo9g1_1.write(servo9g1_1TargetPosition);  
-          delay(1500);   
-          Hole1O = true;      
+          servo9g1_1.write(servo9g1_1TargetPosition);
+          delay(1500);
+          Hole1O = true;
           lcd.setCursor(15, 0);
-          lcd.write(byte(1));               
-        }                   
-        servo9g1_1.detach();                    
+          lcd.write(byte(1));
+        }
+        servo9g1_1.detach();
       }
 
       if(b2)
       {
-        servo9g2_2.attach(SERVO9G2_2_PIN_SIG);     
-        if(Hole2O)    
+        servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+        if(Hole2O)
         {
-          servo9g2_2.write(servo9g2_2RestPosition);    
-          delay(1500);   
-          Hole2O = false;   
+          servo9g2_2.write(servo9g2_2RestPosition);
+          delay(1500);
+          Hole2O = false;
           lcd.setCursor(15, 1);
-          lcd.write(byte(0));                          
+          lcd.write(byte(0));
         }
         else
         {
-          servo9g2_2.write(servo9g2_2TargetPosition);  
-          delay(1500);   
-          Hole2O = true;   
+          servo9g2_2.write(servo9g2_2TargetPosition);
+          delay(1500);
+          Hole2O = true;
           lcd.setCursor(15, 1);
-          lcd.write(byte(1));                  
-        }                   
-        servo9g2_2.detach();                    
+          lcd.write(byte(1));
+        }
+        servo9g2_2.detach();
       }
 
       delay(50);
@@ -322,7 +322,7 @@ void loop()
     digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
     lcd.setCursor(8, 1);
-    lcd.write("si");     
+    lcd.write("si");
     Lamp1 = true;
   }
 
@@ -356,25 +356,25 @@ void loop()
   if((T1filt > TUTH1) && !Hole1O)
   {
     TUTH1 = TUTH1 - 0.3;
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
-    servo9g1_1.write(servo9g1_1TargetPosition);  
-    delay(1500);   
-    Hole1O = true;      
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
+    servo9g1_1.write(servo9g1_1TargetPosition);
+    delay(1500);
+    Hole1O = true;
     lcd.setCursor(15, 0);
-    lcd.write(byte(1));                                
-    servo9g1_1.detach();               
+    lcd.write(byte(1));
+    servo9g1_1.detach();
   }
 
   if((T1filt < TUTH1) && Hole1O)
   {
     TUTH1 = TUTH1 + 0.3;
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
-    servo9g1_1.write(servo9g1_1RestPosition);    
-    delay(1500);   
-    Hole1O = false;   
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
+    servo9g1_1.write(servo9g1_1RestPosition);
+    delay(1500);
+    Hole1O = false;
     lcd.setCursor(15, 0);
-    lcd.write(byte(0));                                  
-    servo9g1_1.detach();               
+    lcd.write(byte(0));
+    servo9g1_1.detach();
   }
 
   if((T1filt < TLTH1) && !TappOn)
@@ -400,25 +400,25 @@ void loop()
   if((U1filt > UUTH1) && !Hole1O)
   {
     UUTH1 = UUTH1 - 0.5;
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
-    servo9g1_1.write(servo9g1_1TargetPosition);  
-    delay(1500);   
-    Hole1O = true;      
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
+    servo9g1_1.write(servo9g1_1TargetPosition);
+    delay(1500);
+    Hole1O = true;
     lcd.setCursor(15, 0);
-    lcd.write(byte(1));                                
-    servo9g1_1.detach();               
+    lcd.write(byte(1));
+    servo9g1_1.detach();
   }
 
   if((U1filt < UUTH1) && Hole1O)
   {
     UUTH1 = UUTH1 + 0.5;
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);     
-    servo9g1_1.write(servo9g1_1RestPosition);    
-    delay(1500);   
-    Hole1O = false;   
+    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
+    servo9g1_1.write(servo9g1_1RestPosition);
+    delay(1500);
+    Hole1O = false;
     lcd.setCursor(15, 0);
-    lcd.write(byte(0));                                  
-    servo9g1_1.detach();               
+    lcd.write(byte(0));
+    servo9g1_1.detach();
   }
 
   if((U1filt < ULTH1) && !UmidOn)
@@ -441,6 +441,54 @@ void loop()
     lcd.write(byte(2));
   }
 
+  if((T2filt > TUTH2) && !Hole2O)
+  {
+    TUTH2 = TUTH2 - 0.3;
+    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+    servo9g2_2.write(servo9g2_2TargetPosition);
+    delay(1500);
+    Hole2O = true;
+    lcd.setCursor(15, 1);
+    lcd.write(byte(1));
+    servo9g2_2.detach();
+  }
+
+  if((T2filt < TUTH2) && Hole2O)
+  {
+    TUTH2 = TUTH2 + 0.3;
+    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+    servo9g2_2.write(servo9g2_2RestPosition);
+    delay(1500);
+    Hole2O = false;
+    lcd.setCursor(15, 1);
+    lcd.write(byte(0));
+    servo9g2_2.detach();
+  }
+
+  if((U2filt > UUTH2) && Hole2O)
+  {
+    UUTH2 = UUTH2 - 0.5;
+    servo9g2_2.attach(SERVO9G1_1_PIN_SIG);
+    servo9g2_2.write(servo9g2_2RestPosition);
+    delay(1500);
+    Hole2O = true;
+    lcd.setCursor(15, 1);
+    lcd.write(byte(1));
+    servo9g2_2.detach();
+  }
+
+  if((U2filt < ULTH2) && !Hole2O)
+  {
+    UUTH1 = UUTH1 + 0.5;
+    servo9g2_2.attach(SERVO9G1_1_PIN_SIG);
+    servo9g2_2.write(servo9g2_2TargetPosition);
+    delay(1500);
+    Hole2O = false;
+    lcd.setCursor(15, 1);
+    lcd.write(byte(0));
+    servo9g2_2.detach();
+  }
+
 
 
   delay(4000);
@@ -448,10 +496,10 @@ void loop()
 }
 
 // Main logic of your circuit. It defines the interaction between the components you selected. After setup, it runs over and over again, in an eternal loop.
-// void loop() 
+// void loop()
 // {
-    
-    
+
+
 //     if(menuOption == '1') {
 //     // DHT22/11 Humidity and Temperature Sensor #1 - Test Code
 //     // Reading humidity in %
@@ -486,8 +534,8 @@ void loop()
 //     }
 //     else if(menuOption == '4') {
 //     // Mini Pushbutton Switch #1 - Test Code
-//     //Read pushbutton state. 
-//     //if button is pressed function will return HIGH (1). if not function will return LOW (0). 
+//     //Read pushbutton state.
+//     //if button is pressed function will return HIGH (1). if not function will return LOW (0).
 //     //for debounce funtionality try also pushButton_1.onPress(), .onRelease() and .onChange().
 //     //if debounce is not working properly try changing 'debounceDelay' variable in Button.h
 //     bool pushButton_1Val = pushButton_1.read();
@@ -496,8 +544,8 @@ void loop()
 //     }
 //     else if(menuOption == '5') {
 //     // Mini Pushbutton Switch #2 - Test Code
-//     //Read pushbutton state. 
-//     //if button is pressed function will return HIGH (1). if not function will return LOW (0). 
+//     //Read pushbutton state.
+//     //if button is pressed function will return HIGH (1). if not function will return LOW (0).
 //     //for debounce funtionality try also pushButton_2.onPress(), .onRelease() and .onChange().
 //     //if debounce is not working properly try changing 'debounceDelay' variable in Button.h
 //     bool pushButton_2Val = pushButton_2.read();
@@ -525,7 +573,7 @@ void loop()
 //     else if(menuOption == '7') {
 //     // Relay Module 4-Ch - Test Code
 //     //This loop will turn on and off each relay in the array for 0.5 sec
-//     for (int i = 0; i < 4; i++) { 
+//     for (int i = 0; i < 4; i++) {
 //     digitalWrite(RelayModule4chPins[i],HIGH);
 //     delay(500);
 //     digitalWrite(RelayModule4chPins[i],LOW);
@@ -534,7 +582,7 @@ void loop()
 //     }
 //     else if(menuOption == '8') {
 //     // 9G Micro Servo #1 - Test Code
-//     // The servo will rotate to target position and back to resting position with an interval of 500 milliseconds (0.5 seconds) 
+//     // The servo will rotate to target position and back to resting position with an interval of 500 milliseconds (0.5 seconds)
 //     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);         // 1. attach the servo to correct pin to control it.
 //     servo9g1_1.write(servo9g1_1TargetPosition);  // 2. turns servo to target position. Modify target position by modifying the 'ServoTargetPosition' definition above.
 //     delay(500);                              // 3. waits 500 milliseconds (0.5 sec). change the value in the brackets (500) for a longer or shorter delay in milliseconds.
@@ -544,7 +592,7 @@ void loop()
 //     }
 //     else if(menuOption == '9') {
 //     // 9G Micro Servo #2 - Test Code
-//     // The servo will rotate to target position and back to resting position with an interval of 500 milliseconds (0.5 seconds) 
+//     // The servo will rotate to target position and back to resting position with an interval of 500 milliseconds (0.5 seconds)
 //     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);         // 1. attach the servo to correct pin to control it.
 //     servo9g2_2.write(servo9g2_2TargetPosition);  // 2. turns servo to target position. Modify target position by modifying the 'ServoTargetPosition' definition above.
 //     delay(500);                              // 3. waits 500 milliseconds (0.5 sec). change the value in the brackets (500) for a longer or shorter delay in milliseconds.
@@ -552,12 +600,12 @@ void loop()
 //     delay(500);                              // 5. waits 500 milliseconds (0.5 sec). change the value in the brackets (500) for a longer or shorter delay in milliseconds.
 //     servo9g2_2.detach();                    // 6. release the servo to conserve power. When detached the servo will NOT hold it's position under stress.
 //     }
-    
+
 //     // if (millis() - time0 > timeout)
 //     // {
 //     //     menuOption = menu();
 //     // }
-    
+
 // }
 
 
@@ -581,29 +629,29 @@ void loop()
 //     while (!Serial.available());
 
 //     // Read data from serial monitor if received
-//     while (Serial.available()) 
+//     while (Serial.available())
 //     {
 //         char c = Serial.read();
-//         if (isAlphaNumeric(c)) 
-//         {   
-            
-//             if(c == '1') 
+//         if (isAlphaNumeric(c))
+//         {
+
+//             if(c == '1')
 //     			Serial.println(F("Now Testing DHT22/11 Humidity and Temperature Sensor #1"));
-//     		else if(c == '2') 
+//     		else if(c == '2')
 //     			Serial.println(F("Now Testing DHT22/11 Humidity and Temperature Sensor #2"));
-//     		else if(c == '3') 
+//     		else if(c == '3')
 //     			Serial.println(F("Now Testing LCD 16x2"));
-//     		else if(c == '4') 
+//     		else if(c == '4')
 //     			Serial.println(F("Now Testing Mini Pushbutton Switch #1"));
-//     		else if(c == '5') 
+//     		else if(c == '5')
 //     			Serial.println(F("Now Testing Mini Pushbutton Switch #2"));
-//     		else if(c == '6') 
+//     		else if(c == '6')
 //     			Serial.println(F("Now Testing RTC - Real Time Clock"));
-//     		else if(c == '7') 
+//     		else if(c == '7')
 //     			Serial.println(F("Now Testing Relay Module 4-Ch"));
-//     		else if(c == '8') 
+//     		else if(c == '8')
 //     			Serial.println(F("Now Testing 9G Micro Servo #1"));
-//     		else if(c == '9') 
+//     		else if(c == '9')
 //     			Serial.println(F("Now Testing 9G Micro Servo #2"));
 //             else
 //             {
@@ -615,4 +663,3 @@ void loop()
 //         }
 //     }
 // }
-
