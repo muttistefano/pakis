@@ -29,7 +29,6 @@
 
 
 
-// Global variables and defines
 //define an array for the 4ch relay module pins
 int RelayModule4chPins[] = { RELAYMODULE4CH_PIN_IN1, RELAYMODULE4CH_PIN_IN2, RELAYMODULE4CH_PIN_IN3, RELAYMODULE4CH_PIN_IN4 };
 const int servo9g1_1RestPosition   = 0;  //Starting position
