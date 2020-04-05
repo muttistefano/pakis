@@ -254,7 +254,7 @@ void loop()
   }
   lcd.print(m);
 
-  while(true)
+  while(false)
   {
     digitalWrite(RelayModule4chPins[0],LOW);
     digitalWrite(RelayModule4chPins[1],LOW);
@@ -298,7 +298,7 @@ void loop()
     delay(2000);
   }
 
-  if(true)
+  if(false)
   {
     unsigned long startedWaiting = millis();
     while( millis() - startedWaiting <= 1000)
