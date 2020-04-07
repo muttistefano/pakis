@@ -254,7 +254,7 @@ void loop()
   }
   lcd.print(m);
 
-  while(true)
+  while(false)
   {
     digitalWrite(RelayModule4chPins[0],LOW);
     digitalWrite(RelayModule4chPins[1],LOW);
@@ -383,7 +383,7 @@ void loop()
 
   if(istime1 && !Lamp1)
   {
-    //digitalWrite(RelayModule4chPins[0],HIGH);
+    digitalWrite(RelayModule4chPins[0],LOW);
     delay(500);
     lcd.setCursor(8, 1);
     lcd.write("si");
@@ -392,7 +392,7 @@ void loop()
 
   if(!istime1 && Lamp1)
   {
-    //digitalWrite(RelayModule4chPins[0],LOW);
+    digitalWrite(RelayModule4chPins[0],HIGH);
     delay(500);
     lcd.setCursor(8, 1);
     lcd.write("no");
@@ -401,7 +401,7 @@ void loop()
 
   if(istime2 && !Lamp2)
   {
-  //  digitalWrite(RelayModule4chPins[1],HIGH);
+    digitalWrite(RelayModule4chPins[1],LOW);
     delay(500);
     lcd.setCursor(10, 1);
     lcd.write("si");
@@ -410,7 +410,7 @@ void loop()
 
   if(!istime2 && Lamp2)
   {
-  //  digitalWrite(RelayModule4chPins[1],LOW);
+    digitalWrite(RelayModule4chPins[1],HIGH);
     delay(500);
     lcd.setCursor(10, 1);
     lcd.write("no");
@@ -444,7 +444,7 @@ void loop()
   if((T1filt < TLTH1) && !TappOn)
   {
     TLTH1 = TLTH1 + 0.3;
-    digitalWrite(RelayModule4chPins[3],HIGH);
+    digitalWrite(RelayModule4chPins[3],LOW);
     delay(500);
     TappOn = true;
     lcd.setCursor(14, 0);
@@ -454,7 +454,7 @@ void loop()
   if((T1filt > TLTH1) && TappOn)
   {
     TLTH1 = TLTH1 - 0.3;
-    digitalWrite(RelayModule4chPins[3],LOW);
+    digitalWrite(RelayModule4chPins[3],HIGH);
     delay(500);
     TappOn = false;
     lcd.setCursor(14, 0);
@@ -488,7 +488,7 @@ void loop()
   if((U1filt < ULTH1) && !UmidOn)
   {
     ULTH1 = ULTH1 + 0.3;
-    digitalWrite(RelayModule4chPins[2],HIGH);
+    digitalWrite(RelayModule4chPins[2],LOW);
     delay(500);
     UmidOn = true;
     lcd.setCursor(14, 1);
@@ -498,7 +498,7 @@ void loop()
   if((U1filt > ULTH1) && UmidOn)
   {
     ULTH1 = ULTH1 - 0.3;
-    digitalWrite(RelayModule4chPins[2],LOW);
+    digitalWrite(RelayModule4chPins[2],HIGH);
     delay(500);
     UmidOn = false;
     lcd.setCursor(14, 1);
