@@ -551,7 +551,7 @@ void loop()
   if((U2filt > UUTH2) && Hole2O)
   {
     UUTH2 = UUTH2 - 0.5;
-    servo9g2_2.attach(SERVO9G1_1_PIN_SIG);
+    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
     servo9g2_2.write(servo9g2_2RestPosition);
     delay(1500);
     Hole2O = true;
@@ -562,8 +562,8 @@ void loop()
 
   if((U2filt < ULTH2) && !Hole2O)
   {
-    UUTH1 = UUTH1 + 0.5;
-    servo9g2_2.attach(SERVO9G1_1_PIN_SIG);
+    UUTH2 = UUTH2 + 0.5;
+    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
     servo9g2_2.write(servo9g2_2TargetPosition);
     delay(1500);
     Hole2O = false;
