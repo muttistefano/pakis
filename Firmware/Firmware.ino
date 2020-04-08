@@ -21,10 +21,14 @@
 #define LCD_PIN_DB7	7
 #define PUSHBUTTON_1_PIN_2	10
 #define PUSHBUTTON_2_PIN_2	11
-#define RELAYMODULE4CH_PIN_IN1	12
-#define RELAYMODULE4CH_PIN_IN2	13
-#define RELAYMODULE4CH_PIN_IN4	A1
-#define RELAYMODULE4CH_PIN_IN3	A3
+// #define RELAYMODULE4CH_PIN_IN1	12
+// #define RELAYMODULE4CH_PIN_IN2	13
+// #define RELAYMODULE4CH_PIN_IN4	A1
+// #define RELAYMODULE4CH_PIN_IN3	A3
+#define RELAYMODULE4CH_PIN_IN1	A1
+#define RELAYMODULE4CH_PIN_IN2	A3
+#define RELAYMODULE4CH_PIN_IN4	12
+#define RELAYMODULE4CH_PIN_IN3	13
 #define SERVO9G1_1_PIN_SIG	A0
 #define SERVO9G2_2_PIN_SIG	A2
 
@@ -190,10 +194,12 @@ void setup()
     servo9g2_2.detach();
 
     delay(1000);
-
     digitalWrite(RelayModule4chPins[0],HIGH);
+    delay(200);
     digitalWrite(RelayModule4chPins[1],HIGH);
+    delay(200);
     digitalWrite(RelayModule4chPins[2],HIGH);
+    delay(200);
     digitalWrite(RelayModule4chPins[3],HIGH);
 
     delay(4000);
