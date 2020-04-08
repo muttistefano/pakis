@@ -536,17 +536,17 @@ void loop()
     servo9g2_2.detach();
   }
 
-  if((T2filt < TUTH2) && Hole2O)
-  {
-    TUTH2 = TUTH2 + 0.3;
-    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2RestPosition);
-    delay(1500);
-    Hole2O = false;
-    lcd.setCursor(15, 1);
-    lcd.write(byte(0));
-    servo9g2_2.detach();
-  }
+  // if((T2filt < TUTH2) && Hole2O)
+  // {
+  //   TUTH2 = TUTH2 + 0.3;
+  //   servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+  //   servo9g2_2.write(servo9g2_2RestPosition);
+  //   delay(1500);
+  //   Hole2O = false;
+  //   lcd.setCursor(15, 1);
+  //   lcd.write(byte(0));
+  //   servo9g2_2.detach();
+  // }
 
   if((U2filt > UUTH2) && Hole2O)
   {
