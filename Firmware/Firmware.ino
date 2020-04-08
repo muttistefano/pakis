@@ -172,7 +172,7 @@ void setup()
         Serial.println("RTC lost power, lets set the time!");
         rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
-    //rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
 
     pinMode(RELAYMODULE4CH_PIN_IN1, OUTPUT);
     pinMode(RELAYMODULE4CH_PIN_IN2, OUTPUT);
