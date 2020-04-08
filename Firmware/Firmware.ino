@@ -1,5 +1,6 @@
 
 // Include Libraries
+#include "CircularBuffer.h"
 #include "Arduino.h"
 #include "DHT.h"
 #include "LiquidCrystal.h"
@@ -7,7 +8,7 @@
 #include "Wire.h"
 #include "RTClib.h"
 #include "Servo.h"
-#include "CircularBuffer.h"
+
 
 // Pin Definitions
 #define DHT_1_PIN_DATA	2
