@@ -141,6 +141,8 @@ void setup()
     // while (!Serial) ; // wait for serial port to connect. Needed for native USB
     // Serial.println("start");
 
+    sleep(4000);
+
     dht_1.begin();
     dht_2.begin();
 
@@ -188,6 +190,11 @@ void setup()
     servo9g2_2.write(servo9g2_2RestPosition);
     delay(100);
     servo9g2_2.detach();
+
+    digitalWrite(RelayModule4chPins[0],HIGH)
+    digitalWrite(RelayModule4chPins[1],HIGH)
+    digitalWrite(RelayModule4chPins[2],HIGH)
+    digitalWrite(RelayModule4chPins[3],HIGH)
 
 }
 
@@ -419,7 +426,7 @@ void loop()
     Lamp2 = false;
   }
 
-  return;
+
 
   if((T1filt > TUTH1) && !Hole1O)
   {
