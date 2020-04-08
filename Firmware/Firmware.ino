@@ -526,7 +526,7 @@ void loop()
 
   if((T2filt > TUTH2) && !Hole2O)
   {
-    TUTH2 = TUTH2 - 0.3;
+    // TUTH2 = TUTH2 - 0.3;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
     servo9g2_2.write(servo9g2_2TargetPosition);
     delay(1500);
@@ -548,7 +548,7 @@ void loop()
   //   servo9g2_2.detach();
   // }
 
-  if((U2filt > UUTH2) && Hole2O)
+  if((U2filt > UUTH2) && !Hole2O)
   {
     UUTH2 = UUTH2 - 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
@@ -560,7 +560,7 @@ void loop()
     servo9g2_2.detach();
   }
 
-  if((U2filt < ULTH2) && !Hole2O)
+  if((U2filt < ULTH2) && Hole2O)
   {
     UUTH2 = UUTH2 + 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
