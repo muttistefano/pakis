@@ -240,19 +240,20 @@ void loop()
   int h = now.hour();
   int m = now.minute();
   float totsec = (float)h + (float)(m)/60.0;
-
+  int timeint = (int)(totsec * 100);
   lcd.setCursor(7, 0);
-  if (h<10){
-   lcd.print(0);
-  }
-  lcd.print(h);
-  lcd.setCursor(9, 0);
-  lcd.print(":");
-  lcd.setCursor(10, 0);
-  if (m<10){
-    lcd.print(0);
-  }
-  lcd.print(m);
+  // if (h<10){
+  //  lcd.print(0);
+  // }
+  // lcd.print(h);
+  // lcd.setCursor(9, 0);
+  // lcd.print(":");
+  // lcd.setCursor(10, 0);
+  // if (m<10){
+  //   lcd.print(0);
+  // }
+  // lcd.print(m);
+  lcd.print(timeint);
 
   while(false)
   {
@@ -416,6 +417,8 @@ void loop()
     lcd.write("no");
     Lamp2 = false;
   }
+
+  return;
 
   if((T1filt > TUTH1) && !Hole1O)
   {
