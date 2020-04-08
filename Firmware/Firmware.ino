@@ -141,8 +141,6 @@ void setup()
     // while (!Serial) ; // wait for serial port to connect. Needed for native USB
     // Serial.println("start");
 
-    delay(4000);
-
     dht_1.begin();
     dht_2.begin();
 
@@ -191,10 +189,14 @@ void setup()
     delay(100);
     servo9g2_2.detach();
 
+    delay(1000);
+
     digitalWrite(RelayModule4chPins[0],HIGH);
     digitalWrite(RelayModule4chPins[1],HIGH);
     digitalWrite(RelayModule4chPins[2],HIGH);
     digitalWrite(RelayModule4chPins[3],HIGH);
+
+    delay(4000);
 
 }
 
