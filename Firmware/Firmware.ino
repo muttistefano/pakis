@@ -552,7 +552,7 @@ void loop()
   {
     UUTH2 = UUTH2 - 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2RestPosition);
+    servo9g2_2.write(servo9g2_2TargetPosition);
     delay(1500);
     Hole2O = true;
     lcd.setCursor(15, 1);
@@ -564,7 +564,7 @@ void loop()
   {
     UUTH2 = UUTH2 + 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2TargetPosition);
+    servo9g2_2.write(servo9g2_2RestPosition);
     delay(1500);
     Hole2O = false;
     lcd.setCursor(15, 1);
