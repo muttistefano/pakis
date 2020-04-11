@@ -176,7 +176,7 @@ void setup()
         Serial.println("RTC lost power, lets set the time!");
         rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
-    rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    // rtcDS.adjust(DateTime(F(__DATE__), F(__TIME__)));
 
     pinMode(RELAYMODULE4CH_PIN_IN1, OUTPUT);
     pinMode(RELAYMODULE4CH_PIN_IN2, OUTPUT);
@@ -237,7 +237,7 @@ void loop()
   }
 
   T1filt = T1filt - 1;
-  T2filt = T2filt - 1;
+  T2filt = T2filt + 1;
 
   int T1p = (int)(T1filt * 10);
   int T2p = (int)(T2filt * 10);
@@ -436,9 +436,10 @@ void loop()
 
 
 
-  if((T1filt > TUTH1) && !Hole1O)
+  if(((T1filt > TUTH1) || (U1filt > UUTH1)) && !Hole1O)
   {
     TUTH1 = TUTH1 - 0.3;
+    UUTH1 = UUTH1 - 0.5;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1TargetPosition);
     delay(1500);
@@ -448,9 +449,10 @@ void loop()
     servo9g1_1.detach();
   }
 
-  if((T1filt < TUTH1) && Hole1O)
+  if(((T1filt < TUTH1) || (U1filt < UUTH1)) && Hole1O)
   {
     TUTH1 = TUTH1 + 0.3;
+    UUTH1 = UUTH1 + 0.5;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1RestPosition);
     delay(1500);
@@ -480,29 +482,6 @@ void loop()
     lcd.write(byte(2));
   }
 
-  if((U1filt > UUTH1) && !Hole1O)
-  {
-    UUTH1 = UUTH1 - 0.5;
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
-    servo9g1_1.write(servo9g1_1TargetPosition);
-    delay(1500);
-    Hole1O = true;
-    lcd.setCursor(15, 0);
-    lcd.write(byte(1));
-    servo9g1_1.detach();
-  }
-
-  if((U1filt < UUTH1) && Hole1O)
-  {
-    UUTH1 = UUTH1 + 0.5;
-    servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
-    servo9g1_1.write(servo9g1_1RestPosition);
-    delay(1500);
-    Hole1O = false;
-    lcd.setCursor(15, 0);
-    lcd.write(byte(0));
-    servo9g1_1.detach();
-  }
 
   if((U1filt < ULTH1) && !UmidOn)
   {
@@ -524,31 +503,9 @@ void loop()
     lcd.write(byte(2));
   }
 
-  if((T2filt > TUTH2) && !Hole2O)
-  {
-    // TUTH2 = TUTH2 - 0.3;
-    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2TargetPosition);
-    delay(1500);
-    Hole2O = true;
-    lcd.setCursor(15, 1);
-    lcd.write(byte(1));
-    servo9g2_2.detach();
-  }
 
-  // if((T2filt < TUTH2) && Hole2O)
-  // {
-  //   TUTH2 = TUTH2 + 0.3;
-  //   servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-  //   servo9g2_2.write(servo9g2_2RestPosition);
-  //   delay(1500);
-  //   Hole2O = false;
-  //   lcd.setCursor(15, 1);
-  //   lcd.write(byte(0));
-  //   servo9g2_2.detach();
-  // }
 
-  if((U2filt > UUTH2) && !Hole2O)
+  if(((U2filt > UUTH2) || (T2filt > TUTH2) ) && !Hole2O)
   {
     UUTH2 = UUTH2 - 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
