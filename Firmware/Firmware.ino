@@ -39,7 +39,7 @@ int RelayModule4chPins[] = { RELAYMODULE4CH_PIN_IN1, RELAYMODULE4CH_PIN_IN2, REL
 const int servo9g1_1RestPosition   = 0;  //Starting position
 const int servo9g1_1TargetPosition = 50; //Position when event is detected
 const int servo9g2_2RestPosition   = 0;  //Starting position
-const int servo9g2_2TargetPosition = 25; //Position when event is detected
+const int servo9g2_2TargetPosition = 10; //Position when event is detected
 // object initialization
 DHT dht_1(DHT_1_PIN_DATA);
 DHT dht_2(DHT_2_PIN_DATA);
@@ -442,7 +442,7 @@ void loop()
     UUTH1 = UUTH1 - 0.5;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1TargetPosition);
-    delay(1500);
+    delay(3000);
     Hole1O = true;
     lcd.setCursor(15, 0);
     lcd.write(byte(1));
@@ -455,7 +455,7 @@ void loop()
     UUTH1 = UUTH1 + 0.5;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1RestPosition);
-    delay(1500);
+    delay(3000);
     Hole1O = false;
     lcd.setCursor(15, 0);
     lcd.write(byte(0));
@@ -505,29 +505,54 @@ void loop()
 
 
 
-  if(((U2filt > UUTH2) || (T2filt > TUTH2) ) && !Hole2O)
-  {
-    UUTH2 = UUTH2 - 0.5;
-    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2TargetPosition);
-    delay(1500);
-    Hole2O = true;
-    lcd.setCursor(15, 1);
-    lcd.write(byte(1));
-    servo9g2_2.detach();
-  }
+    if{ (T2filt > TUTH2) ) && !Hole2O)
+    {
+      TUTH2 = TUTH2 - 0.5;
+      servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+      servo9g2_2.write(servo9g2_2TargetPosition);
+      delay(3000);
+      Hole2O = true;
+      lcd.setCursor(15, 1);
+      lcd.write(byte(1));
+      servo9g2_2.detach();
+    }
 
-  if((U2filt < ULTH2) && Hole2O)
-  {
-    UUTH2 = UUTH2 + 0.5;
-    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2RestPosition);
-    delay(1500);
-    Hole2O = false;
-    lcd.setCursor(15, 1);
-    lcd.write(byte(0));
-    servo9g2_2.detach();
-  }
+    if{ (T2filt < TUTH2) ) && Hole2O)
+    {
+      TUTH2 = TUTH2 + 0.5;
+      servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+      servo9g2_2.write(servo9g2_2RestPosition);
+      delay(3000);
+      Hole2O = false;
+      lcd.setCursor(15, 0);
+      lcd.write(byte(1));
+      servo9g2_2.detach();
+    }
+
+  //
+  // if(((U2filt > UUTH2) || (T2filt > TUTH2) ) && !Hole2O)
+  // {
+  //   UUTH2 = UUTH2 - 0.5;
+  //   servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+  //   servo9g2_2.write(servo9g2_2TargetPosition);
+  //   delay(3000);
+  //   Hole2O = true;
+  //   lcd.setCursor(15, 1);
+  //   lcd.write(byte(1));
+  //   servo9g2_2.detach();
+  // }
+
+  // if((U2filt < ULTH2) && Hole2O)
+  // {
+  //   UUTH2 = UUTH2 + 0.5;
+  //   servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+  //   servo9g2_2.write(servo9g2_2RestPosition);
+  //   delay(3000);
+  //   Hole2O = false;
+  //   lcd.setCursor(15, 1);
+  //   lcd.write(byte(0));
+  //   servo9g2_2.detach();
+  // }
 
 
 
