@@ -132,7 +132,7 @@ float TUTH1  = 28.0;
 float ULTH1  = 68.0;
 float UUTH1  = 85.0;
 
-float TUTH2  = 26.0;
+float TUTH2  = 30.0;
 
 float ULTH2  = 35.0;
 float UUTH2  = 55.0;
