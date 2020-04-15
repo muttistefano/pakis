@@ -505,7 +505,7 @@ void loop()
 
 
 
-    if{ (T2filt > TUTH2) ) && !Hole2O)
+    if ((T2filt > TUTH2)  && !Hole2O)
     {
       TUTH2 = TUTH2 - 0.5;
       servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
@@ -517,7 +517,7 @@ void loop()
       servo9g2_2.detach();
     }
 
-    if{ (T2filt < TUTH2) ) && Hole2O)
+    if ((T2filt < TUTH2)  && Hole2O)
     {
       TUTH2 = TUTH2 + 0.5;
       servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
