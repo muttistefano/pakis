@@ -126,7 +126,7 @@ float T2filt = 0.0;
 float U1filt = 0.0;
 float U2filt = 0.0;
 
-float TLTH1  = 24.0;
+float TLTH1  = 27.0;
 float TUTH1  = 28.0;
 
 float ULTH1  = 68.0;
@@ -505,29 +505,33 @@ void loop()
 
 
 
-    if ((T2filt > TUTH2)  && !Hole2O)
-    {
-      TUTH2 = TUTH2 - 0.5;
-      servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-      servo9g2_2.write(servo9g2_2TargetPosition);
-      delay(3000);
-      Hole2O = true;
-      lcd.setCursor(15, 1);
-      lcd.write(byte(1));
-      servo9g2_2.detach();
-    }
+  if ((T2filt > TUTH2)  && !Hole2O)
+  {
+    TUTH2 = TUTH2 - 0.5;
+    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+    servo9g2_2.write(servo9g2_2TargetPosition);
+    delay(3000);
+    Hole2O = true;
+    lcd.setCursor(15, 1);
+    lcd.write(byte(1));
+    lcd.setCursor(13, 1);
+    lcd.write("O");
+    servo9g2_2.detach();
+  }
 
-    if ((T2filt < TUTH2)  && Hole2O)
-    {
-      TUTH2 = TUTH2 + 0.5;
-      servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-      servo9g2_2.write(servo9g2_2RestPosition);
-      delay(3000);
-      Hole2O = false;
-      lcd.setCursor(15, 0);
-      lcd.write(byte(1));
-      servo9g2_2.detach();
-    }
+  if ((T2filt < TUTH2)  && Hole2O)
+  {
+    TUTH2 = TUTH2 + 0.5;
+    servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
+    servo9g2_2.write(servo9g2_2RestPosition);
+    delay(3000);
+    Hole2O = false;
+    lcd.setCursor(15, 1);
+    lcd.write(byte(0));
+    lcd.setCursor(13, 1);
+    lcd.write("C");
+    servo9g2_2.detach();
+  }
 
   //
   // if(((U2filt > UUTH2) || (T2filt > TUTH2) ) && !Hole2O)
