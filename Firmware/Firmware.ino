@@ -29,8 +29,8 @@
 #define RELAYMODULE4CH_PIN_IN2	A3
 #define RELAYMODULE4CH_PIN_IN4	12
 #define RELAYMODULE4CH_PIN_IN3	13
-#define SERVO9G1_1_PIN_SIG	A0
-#define SERVO9G2_2_PIN_SIG	A2
+#define SERVO9G1_1_PIN_SIG	A2
+#define SERVO9G2_2_PIN_SIG	A0
 
 
 
@@ -442,23 +442,23 @@ void loop()
     UUTH1 = UUTH1 - 0.5;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1TargetPosition);
-    delay(3000);
     Hole1O = true;
     lcd.setCursor(15, 0);
     lcd.write(byte(1));
+    delay(3000);
     servo9g1_1.detach();
   }
 
-  if(((T1filt < TUTH1) || (U1filt < UUTH1)) && Hole1O)
+  if(((T1filt < TUTH1) && (U1filt < UUTH1)) && Hole1O)
   {
     TUTH1 = TUTH1 + 0.3;
     UUTH1 = UUTH1 + 0.5;
     servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
     servo9g1_1.write(servo9g1_1RestPosition);
-    delay(3000);
     Hole1O = false;
     lcd.setCursor(15, 0);
     lcd.write(byte(0));
+    delay(3000);
     servo9g1_1.detach();
   }
 
@@ -466,20 +466,20 @@ void loop()
   {
     TLTH1 = TLTH1 + 0.3;
     digitalWrite(RelayModule4chPins[3],LOW);
-    delay(500);
     TappOn = true;
     lcd.setCursor(14, 0);
     lcd.write(byte(3));
+    delay(500);
   }
 
   if((T1filt > TLTH1) && TappOn)
   {
     TLTH1 = TLTH1 - 0.3;
     digitalWrite(RelayModule4chPins[3],HIGH);
-    delay(500);
     TappOn = false;
     lcd.setCursor(14, 0);
     lcd.write(byte(2));
+    delay(500);
   }
 
 
@@ -487,20 +487,20 @@ void loop()
   {
     ULTH1 = ULTH1 + 0.3;
     digitalWrite(RelayModule4chPins[2],LOW);
-    delay(500);
     UmidOn = true;
     lcd.setCursor(14, 1);
     lcd.write(byte(3));
+    delay(500);
   }
 
   if((U1filt > ULTH1) && UmidOn)
   {
     ULTH1 = ULTH1 - 0.3;
     digitalWrite(RelayModule4chPins[2],HIGH);
-    delay(500);
     UmidOn = false;
     lcd.setCursor(14, 1);
     lcd.write(byte(2));
+    delay(500);
   }
 
 
@@ -509,13 +509,11 @@ void loop()
   {
     TUTH2 = TUTH2 - 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
-    servo9g2_2.write(servo9g2_2TargetPosition);
-    delay(3000);
+    servo9g2_2.write(servo9g2_2TargetPosition
     Hole2O = true;
     lcd.setCursor(15, 1);
     lcd.write(byte(1));
-    lcd.setCursor(13, 1);
-    lcd.write("O");
+    delay(3000);
     servo9g2_2.detach();
   }
 
@@ -524,12 +522,10 @@ void loop()
     TUTH2 = TUTH2 + 0.5;
     servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
     servo9g2_2.write(servo9g2_2RestPosition);
-    delay(3000);
     Hole2O = false;
     lcd.setCursor(15, 1);
     lcd.write(byte(0));
-    lcd.setCursor(13, 1);
-    lcd.write("C");
+    delay(3000);
     servo9g2_2.detach();
   }
 
