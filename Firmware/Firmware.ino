@@ -29,8 +29,8 @@
 #define RELAYMODULE4CH_PIN_IN2	A3
 #define RELAYMODULE4CH_PIN_IN4	12
 #define RELAYMODULE4CH_PIN_IN3	13
-#define SERVO9G1_1_PIN_SIG	A2
-#define SERVO9G2_2_PIN_SIG	A0
+#define SERVO9G1_1_PIN_SIG	A0
+#define SERVO9G2_2_PIN_SIG	A2
 
 
 
@@ -50,7 +50,7 @@ RTC_DS3231 rtcDS;
 Servo servo9g1_1;
 Servo servo9g2_2;
 
-byte EmChar[] = {
+byte ClChar[] = {
   B11111,
   B10001,
   B10001,
@@ -61,13 +61,13 @@ byte EmChar[] = {
   B11111
 };
 
-byte FuChar[] = {
+byte OpChar[] = {
   B11111,
   B10001,
-  B10101,
   B11111,
   B11111,
-  B10101,
+  B11111,
+  B11111,
   B10001,
   B11111
 };
@@ -151,8 +151,8 @@ void setup()
     lcd.begin(16, 2);
 
     lcd.setCursor(0, 0);
-    lcd.createChar(0, EmChar);
-    lcd.createChar(1, FuChar);
+    lcd.createChar(0, OpChar);
+    lcd.createChar(1, ClChar);
     lcd.createChar(2, OpenRele);
     lcd.createChar(3, CloseRele);
 
@@ -444,7 +444,7 @@ void loop()
     servo9g1_1.write(servo9g1_1TargetPosition);
     Hole1O = true;
     lcd.setCursor(15, 0);
-    lcd.write(byte(1));
+    lcd.write(byte(0));
     delay(3000);
     servo9g1_1.detach();
   }
@@ -457,7 +457,7 @@ void loop()
     servo9g1_1.write(servo9g1_1RestPosition);
     Hole1O = false;
     lcd.setCursor(15, 0);
-    lcd.write(byte(0));
+    lcd.write(byte(1));
     delay(3000);
     servo9g1_1.detach();
   }
@@ -512,7 +512,7 @@ void loop()
     servo9g2_2.write(servo9g2_2TargetPosition
     Hole2O = true;
     lcd.setCursor(15, 1);
-    lcd.write(byte(1));
+    lcd.write(byte(0));
     delay(3000);
     servo9g2_2.detach();
   }
@@ -524,7 +524,7 @@ void loop()
     servo9g2_2.write(servo9g2_2RestPosition);
     Hole2O = false;
     lcd.setCursor(15, 1);
-    lcd.write(byte(0));
+    lcd.write(byte(1));
     delay(3000);
     servo9g2_2.detach();
   }
