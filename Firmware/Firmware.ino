@@ -335,7 +335,7 @@ void loop()
     delay(2000);
   }
 
-  if(false)
+  while(true)
   {
     unsigned long startedWaiting = millis();
     while( millis() - startedWaiting <= 1000)
@@ -343,7 +343,7 @@ void loop()
       b1 = pushButton_1.onPress();
       b2 = pushButton_2.onPress();
 
-      if(false)
+      if(b1)
       {
         servo9g1_1.attach(SERVO9G1_1_PIN_SIG);
         if(Hole1O)
@@ -365,7 +365,7 @@ void loop()
         servo9g1_1.detach();
       }
 
-      if(false)
+      if(b2)
       {
         servo9g2_2.attach(SERVO9G2_2_PIN_SIG);
         if(Hole2O)
@@ -386,11 +386,7 @@ void loop()
         }
         servo9g2_2.detach();
       }
-      if(b1)
-      {digitalWrite(RelayModule4chPins[1],HIGH);}
-      if(b2)
-      {digitalWrite(RelayModule4chPins[1],LOW);}
-      delay(50);
+
     }
   }
 
