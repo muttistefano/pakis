@@ -388,6 +388,7 @@ void loop()
       }
 
     }
+    delay(3000);
   }
 
   bool istime1 = (totsec > 19.00 || totsec < 11.0 ) ? true:false;
